@@ -8,7 +8,7 @@ from ttkbootstrap.constants import *
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-# Define colors for the professional color palette
+
 BACKGROUND_COLOR = "#f4f4f9"
 PRIMARY_COLOR = "#007acc"
 SECONDARY_COLOR = "#005a8d"
@@ -17,14 +17,14 @@ ENTRY_BG_COLOR = "#e0e0eb"
 BUTTON_DEFAULT = "#d3d3d3"
 BUTTON_HOVER = "#a9a9a9"
 
-# Create the main window
+
 root = tb.Window(themename="flatly")
 root.title("Expense Tracker")
 root.geometry("800x600")
 root.minsize(800, 600)
 root.configure(bg=BACKGROUND_COLOR)
 
-# Database initialization
+
 conn = sqlite3.connect('expenses.db')
 cursor = conn.cursor()
 cursor.execute('''
@@ -55,7 +55,7 @@ cursor.execute('''
 conn.commit()
 conn.close()
 
-# Global variable to store the logged-in username
+
 logged_in_user = ""
 
 def show_homepage():
@@ -69,11 +69,11 @@ def show_homepage():
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
-    # Add a welcome label
+    
     welcome_label = ttk.Label(homepage_frame, text=f"Welcome to Expense Tracker, {logged_in_user}", font=("Helvetica", 24, "bold"), foreground=PRIMARY_COLOR)
     welcome_label.grid(row=0, column=0, pady=(0, 30), sticky=tk.N)
 
-    # Recent Transactions Section
+   
     recent_label = ttk.Label(homepage_frame, text="Recent Transactions", font=("Helvetica", 16), foreground=PRIMARY_COLOR)
     recent_label.grid(row=7, column=0, pady=(20, 10))
     
@@ -89,7 +89,6 @@ def show_homepage():
     for transaction in transactions:
         recent_transactions.insert(tk.END, f"{transaction[2]}: {transaction[3]} on {transaction[4]}")
 
-    # Functions to open new windows
     def add_expense():
         new_window = tk.Toplevel(root)
         new_window.title("Add Expense")
@@ -266,7 +265,7 @@ def show_homepage():
         new_window.title("View Expense")
         new_window.geometry("800x600")
 
-        # Create a sample pie chart
+        
         fig, ax = plt.subplots()
         conn = sqlite3.connect('expenses.db')
         cursor = conn.cursor()
@@ -279,7 +278,7 @@ def show_homepage():
         ax.pie(sizes, labels=categories, autopct='%1.1f%%', startangle=90)
         ax.axis('equal')
 
-        # Embed the plot in the Tkinter window
+        
         canvas = FigureCanvasTkAgg(fig, master=new_window)
         canvas.draw()
         canvas.get_tk_widget().pack()
@@ -307,7 +306,7 @@ def show_homepage():
         submit_button = ttk.Button(new_window, text="Submit", command=submit_goal)
         submit_button.grid(row=1, column=0, columnspan=2)
 
-    # Add buttons for functionalities
+    
     buttons = [
         ("Add Expense", add_expense),
         ("Update Expense", update_expense),
@@ -321,7 +320,7 @@ def show_homepage():
         button = ttk.Button(homepage_frame, text=text, command=command, style='Primary.TButton')
         button.grid(row=i + 1, column=0, pady=(10, 10))
 
-# Function to show admin dashboard
+
 def show_admin_dashboard():
     for widget in root.winfo_children():
         widget.destroy()
@@ -333,7 +332,7 @@ def show_admin_dashboard():
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
-    # Add a welcome label
+    
     welcome_label = ttk.Label(admin_frame, text="Admin Dashboard", font=("Helvetica", 24, "bold"), foreground=PRIMARY_COLOR)
     welcome_label.grid(row=0, column=0, pady=(0, 30), sticky=tk.N)
 
@@ -342,7 +341,7 @@ def show_admin_dashboard():
         new_window.title("User Expenditures")
         new_window.geometry("800x600")
 
-        # Create a sample bar chart
+        
         fig, ax = plt.subplots()
         conn = sqlite3.connect('expenses.db')
         cursor = conn.cursor()
@@ -357,7 +356,7 @@ def show_admin_dashboard():
         ax.set_ylabel('Expenditure')
         ax.set_title('Expenditure by User')
 
-        # Embed the plot in the Tkinter window
+       
         canvas = FigureCanvasTkAgg(fig, master=new_window)
         canvas.draw()
         canvas.get_tk_widget().pack()
@@ -370,7 +369,7 @@ def show_admin_dashboard():
         button = ttk.Button(admin_frame, text=text, command=command, style='Primary.TButton')
         button.grid(row=i + 1, column=0, pady=(10, 10))
 
-# Create a frame for the login form
+
 frame = ttk.Frame(root, padding="20")
 frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 frame.columnconfigure(0, weight=1)
@@ -378,29 +377,29 @@ frame.columnconfigure(1, weight=1)
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
 
-# Style configuration
+
 style = ttk.Style()
 style.configure("TFrame", background=BACKGROUND_COLOR)
 style.configure("TLabel", background=BACKGROUND_COLOR, font=("Helvetica", 16))
 style.configure("TRadiobutton", background=BACKGROUND_COLOR, font=("Helvetica", 16))
 style.configure("TEntry", font=("Helvetica", 16))
 
-# Custom button style for default and hover states
+
 style.configure("TButton", font=("Helvetica", 16), background=BUTTON_DEFAULT, foreground=TEXT_COLOR)
 style.map("TButton", background=[('!active', BUTTON_DEFAULT), ('active', BUTTON_HOVER)])
 
-# Add a welcome label
+
 welcome_label = ttk.Label(frame, text="Welcome to Expense Tracker", font=("Helvetica", 24, "bold"), foreground=PRIMARY_COLOR)
 welcome_label.grid(row=0, column=0, columnspan=2, pady=(0, 30), sticky=tk.N)
 
-# Add radio buttons for Admin and User
+
 user_type = tk.StringVar(value="User")
 admin_radio = ttk.Radiobutton(frame, text="Admin", variable=user_type, value="Admin")
 user_radio = ttk.Radiobutton(frame, text="User", variable=user_type, value="User")
 admin_radio.grid(row=1, column=0, sticky=tk.E, padx=(0, 20))
 user_radio.grid(row=1, column=1, sticky=tk.W, padx=(20, 0))
 
-# Add username and password labels and entry fields
+
 username_label = ttk.Label(frame, text="Username:")
 username_label.grid(row=2, column=0, pady=(30, 10), sticky=tk.E)
 username_entry = ttk.Entry(frame, width=30)
@@ -411,7 +410,7 @@ password_label.grid(row=3, column=0, pady=(10, 30), sticky=tk.E)
 password_entry = ttk.Entry(frame, width=30, show="*")
 password_entry.grid(row=3, column=1, pady=(10, 30), padx=(10, 0))
 
-# Function to handle login
+
 def login():
     global logged_in_user
     username = username_entry.get()
@@ -437,7 +436,6 @@ def login():
 
     conn.close()
 
-# Function to handle signup
 def signup():
     def register_user():
         new_username = new_username_entry.get()
@@ -490,12 +488,11 @@ def signup():
     register_button = ttk.Button(signup_window, text="Register", command=register_user)
     register_button.grid(row=3, column=0, columnspan=2, pady=(20, 20))
 
-# Add buttons for login and signup
+
 login_button = ttk.Button(frame, text="Login", command=login, style='TButton')
 login_button.grid(row=4, column=0, pady=(0, 20), sticky=tk.E)
 
 signup_button = ttk.Button(frame, text="Signup", command=signup, style='TButton')
 signup_button.grid(row=4, column=1, pady=(0, 20), sticky=tk.W)
 
-# Run the application
 root.mainloop()
