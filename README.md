@@ -6,32 +6,6 @@ I am also sincerely grateful to the faculty and staff of the School of Computer 
 
 Lastly, I would like to express my profound appreciation to my family and friends for their unwavering support and patience throughout this journey. Their belief in me, coupled with their constant motivation, gave me the strength to push forward, even during the most challenging moments. Their understanding, sacrifices, and encouragement were a constant source of strength. Without their love and support, reaching this milestone would not have been possible, and for that, I am truly thankful. Their faith in my abilities has always been my greatest source of inspiration.
 
-Table of Contents
-
-1.	Introduction .......................................................... 3
-
-
-2.	Objectives and Scope of the Project ....................4-6
-2.1 Objectives……………………………..4-5
-2.2 Scope of project……………………….5-6
-
-
-3.	Application Tools ................................................... 6-7
-3.1 Python…………………………………6 
-3.2 Tkinter...……………………………….6
-3.3 SQlite Database……………………….6
-3.4 VS Code……….……………………….7
-3.5 Github and Git………………………...7
-
-
-4.	Project Design……………….....................................7-12
-4.1.Core Components and Classes………..7-9
-4.2 Interaction b/w Components…………..10
-4.3 Achieving Project Objectives……….10-11
-
-
-5.	Flowchart………………………. ................................ 11-12
-
 
 
 
